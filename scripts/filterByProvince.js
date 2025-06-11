@@ -1,7 +1,7 @@
 const { getRowsFromExcel } = require('./utils/excelReader');
 
 const excelRelativePath = 'Public/data/2025_1v.xlsx';
-const provinciaCodigoBuscado = 5; // Cambia según tu necesidad
+const provinciaCodigoBuscado = Number(process.argv[2]) || 5;
 
 const rows = getRowsFromExcel(excelRelativePath);
 

@@ -13,19 +13,18 @@ Este proyecto tiene como objetivo procesar datos electorales provenientes de un 
 ## 📁 Estructura del Proyecto
 
 ```
-
 data-process/
 ├── Public/
 │   └── data/
-│       └── 2025\_1v.xlsx  ← archivo original de datos (no debe modificarse)
+│       └── 2025\_1v.xlsx        ← archivo original de datos (no debe modificarse)
 ├── scripts/
-│   ├── filterByProvince.js  ← script principal para filtrar y mostrar resultados
-│   ├── readHeaders.js       ← utilidad para explorar columnas del Excel
+│   ├── filterByProvince.js     ← script principal para filtrar y mostrar resultados
+│   ├── readHeaders.js          ← utilidad para explorar columnas del Excel
 │   └── utils/
-│       └── excelReader.js   ← función auxiliar para leer el Excel
-├── package.json
+│       └── excelReader.js      ← función auxiliar para leer el Excel
+├── package.json                ← incluye scripts para ejecución rápida
 ├── package-lock.json
-└── README.md  ← este archivo
+└── README.md                   ← este archivo
 
 ````
 
@@ -63,19 +62,23 @@ Public/data/2025_1v.xlsx
 
 ## 🚀 Ejecución
 
-Para procesar los datos de una provincia específica, modifica el código en `filterByProvince.js`, cambiando el valor de `provinciaCodigoBuscado` por el código deseado (por ejemplo: `5` para Cotopaxi).
-
-Luego ejecuta:
+Para procesar los datos de una **provincia específica**, usa el siguiente comando:
 
 ```bash
-node scripts/filterByProvince.js
+npm run filter -- <CODIGO_PROVINCIA>
+```
+
+Por ejemplo, para analizar la provincia con código `5` (Cotopaxi):
+
+```bash
+npm run filter -- 5
 ```
 
 ### 📌 Notas
 
 * Solo se procesan registros cuya columna `DIGNIDAD_NOMBRE` sea **"PRESIDENTE Y VICEPRESIDENTE"**.
 * Los resultados se ordenan por número de votos descendente.
-* Se calcula el % total respecto al total general.
+* Se calcula el porcentaje respecto al total de votos (válidos, blancos y nulos).
 
 ---
 
@@ -84,7 +87,7 @@ node scripts/filterByProvince.js
 ### Leer encabezados del Excel:
 
 ```bash
-node scripts/readHeaders.js
+npm run headers
 ```
 
 Esto es útil si no estás seguro de cómo se llaman las columnas (por ejemplo: `PROVINCIA_CODIGO`, `DIGNIDAD_NOMBRE`, `VOTOS`, etc.).
