@@ -1,0 +1,17 @@
+# Node modules
+node_modules/
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos generados por editores
+.vscode/
+.idea/
+
+# Archivos de salida u ocultos
+*.log
+*.tmp
+
+# Datos originales (si no deseas compartirlos)
+public/data/2025_1v.xlsx
