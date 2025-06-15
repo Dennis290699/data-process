@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "headers": "node scripts/readHeaders.js",
-    "filter": "node scripts/filterByProvince.js"
+    "filter": "node scripts/filterByProvince.js",
+    "analyze": "node scripts/analyzeByParroquia.js"
   },
   "keywords": [],
   "author": "",

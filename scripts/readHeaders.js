@@ -1,6 +1,6 @@
 const { getHeadersFromExcel } = require('./utils/excelReader');
 
-const excelRelativePath = 'Public/data/2025_1v.xlsx';
+const excelRelativePath = 'public/data/2025_1v.xlsx';
 
 const headers = getHeadersFromExcel(excelRelativePath);
 

@@ -94,6 +94,14 @@ Esto es útil si no estás seguro de cómo se llaman las columnas (por ejemplo: 
 
 ---
 
+### Analisis por provincia:
+
+Por ejemplo, para analizar la provincia con código `5` (Cotopaxi):
+
+```bash
+npm run analyze -- 5
+```
+
 ## 📄 Licencia
 
 Este proyecto es libre para uso académico y análisis electoral. Se recomienda respetar la fuente de los datos oficiales.
