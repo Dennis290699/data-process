@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "headers": "node scripts/readHeaders.js",
-    "filter": "node scripts/filterByProvince.js",
-    "analyze": "node scripts/analyzeByParroquia.js"
+    "explorarPrimera": "node scripts/primeraVueltaExplorar.js",
+    "exportarPrimera": "node scripts/primeraVueltaExportar.js",
+    "explorarSegunda": "node scripts/segundaVueltaExplorar.js",
+    "exportarSegunda": "node scripts/segundaVueltaExportar.js"
   },
   "keywords": [],
   "author": "",

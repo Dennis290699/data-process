@@ -14,5 +14,6 @@ Thumbs.db
 *.tmp
 
 # Datos originales (si no deseas compartirlos)
-public/data/2025_1v.xlsx
+public/data
+# Datos procesados
 public/output

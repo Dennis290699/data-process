@@ -1,41 +1,52 @@
 # 📊 Procesador de Datos Electorales - Elecciones 2025 🇪🇨
 
-Este proyecto tiene como objetivo procesar datos electorales provenientes de un archivo `.xlsx`, específicamente para la dignidad de **PRESIDENTE Y VICEPRESIDENTE**, filtrando por provincia y generando estadísticas agregadas como:
+Este proyecto tiene como objetivo procesar datos electorales provenientes de archivos `.xlsx`, específicamente para la dignidad de **PRESIDENTE Y VICEPRESIDENTE**, filtrando por provincia y generando estadísticas agregadas como:
 
-- Total de votos válidos
-- Blancos y nulos
-- Total general
+- Total de votos válidos, blancos y nulos
 - Resultados por partido y candidato
-- Porcentaje sobre el total
-
----
+- Porcentaje de participación
+- Ganadores por parroquia
+- Exportación a `.xlsx` y `.json` organizados por vuelta y provincia
 
 ## 📁 Estructura del Proyecto
 
 ```
+
 data-process/
-├── Public/
-│   └── data/
-│       └── 2025\_1v.xlsx        ← archivo original de datos (no debe modificarse)
+├── public/
+│   ├── data/
+│   │   ├── 2025\_1v.xlsx
+│   │   └── Segunda-Vuelta-2025.xlsx
+│   └── output/
+│       ├── primera-vuelta/
+│       │   └── Provincia\_<CODIGO>/
+│       │       ├── parroquias\_resultado\_prov\_<CODIGO>.json
+│       │       ├── ganadores\_resultado\_prov\_<CODIGO>.json
+│       │       ├── partidos\_resultado\_prov\_<CODIGO>.json
+│       │       └── parroquias\_resultado\_prov\_<CODIGO>.xlsx
+│       └── segunda-vuelta/
+│           └── Provincia\_<CODIGO>/
+│               ├── parroquias\_resultado\_prov\_<CODIGO>.json
+│               ├── ganadores\_resultado\_prov\_<CODIGO>.json
+│               ├── partidos\_resultado\_prov\_<CODIGO>.json
+│               └── parroquias\_resultado\_prov\_<CODIGO>.xlsx
 ├── scripts/
-│   ├── filterByProvince.js     ← script principal para filtrar y mostrar resultados
-│   ├── readHeaders.js          ← utilidad para explorar columnas del Excel
-│   └── utils/
-│       └── excelReader.js      ← función auxiliar para leer el Excel
-├── package.json                ← incluye scripts para ejecución rápida
-├── package-lock.json
-└── README.md                   ← este archivo
+│   ├── utils/
+│   │   └── excelReader.js
+│   ├── readHeaders.js
+│   ├── primeraVueltaExplorar.js
+│   ├── primeraVueltaExportar.js
+│   ├── segundaVueltaExplorar.js
+│   └── segundaVueltaExportar.js
+├── package.json
+└── README.md
 
 ````
-
----
 
 ## ⚙️ Requisitos
 
 - Node.js (v16+ recomendado)
 - npm
-
----
 
 ## 🧪 Instalación
 
@@ -52,56 +63,76 @@ cd data-process
 npm install
 ```
 
-3. Asegúrate de tener el archivo Excel en la siguiente ruta:
+3. Asegúrate de tener los archivos `.xlsx` en:
 
 ```
-Public/data/2025_1v.xlsx
+public/data/2025_1v.xlsx
+public/data/Segunda-Vuelta-2025.xlsx
 ```
 
----
+## 🚀 Comandos disponibles
 
-## 🚀 Ejecución
-
-Para procesar los datos de una **provincia específica**, usa el siguiente comando:
-
-```bash
-npm run filter -- <CODIGO_PROVINCIA>
-```
-
-Por ejemplo, para analizar la provincia con código `5` (Cotopaxi):
-
-```bash
-npm run filter -- 5
-```
-
-### 📌 Notas
-
-* Solo se procesan registros cuya columna `DIGNIDAD_NOMBRE` sea **"PRESIDENTE Y VICEPRESIDENTE"**.
-* Los resultados se ordenan por número de votos descendente.
-* Se calcula el porcentaje respecto al total de votos (válidos, blancos y nulos).
-
----
-
-## 🧰 Scripts útiles
-
-### Leer encabezados del Excel:
+### 📌 Leer columnas del archivo Excel (útil para exploración inicial):
 
 ```bash
 npm run headers
 ```
 
-Esto es útil si no estás seguro de cómo se llaman las columnas (por ejemplo: `PROVINCIA_CODIGO`, `DIGNIDAD_NOMBRE`, `VOTOS`, etc.).
+### 🔍 Exploración de resultados **sin generar archivos**
 
----
-
-### Analisis por provincia:
-
-Por ejemplo, para analizar la provincia con código `5` (Cotopaxi):
+#### Primera vuelta:
 
 ```bash
-npm run analyze -- 5
+npm run explorarPrimera -- <CODIGO_PROVINCIA>
 ```
 
-## 📄 Licencia
+#### Segunda vuelta:
 
-Este proyecto es libre para uso académico y análisis electoral. Se recomienda respetar la fuente de los datos oficiales.
+```bash
+npm run explorarSegunda -- <CODIGO_PROVINCIA>
+```
+
+Ejemplo:
+
+```bash
+npm run explorarSegunda -- 5
+```
+
+### 📤 Exportar resultados a JSON y Excel
+
+#### Primera vuelta:
+
+```bash
+npm run exportarPrimera -- <CODIGO_PROVINCIA>
+```
+
+#### Segunda vuelta:
+
+```bash
+npm run exportarSegunda -- <CODIGO_PROVINCIA>
+```
+
+Esto generará los archivos:
+
+* `.xlsx` con resumen por parroquia, ganadores por parroquia y resumen por partido.
+* `.json` correspondientes, organizados en:
+
+```
+public/output/primera-vuelta/Provincia_<CODIGO>/
+public/output/segunda-vuelta/Provincia_<CODIGO>/
+```
+
+Ejemplo:
+
+```bash
+npm run exportarSegunda -- 17
+```
+
+## 📌 Notas importantes
+
+* Solo se procesan registros con `DIGNIDAD_NOMBRE = "PRESIDENTE Y VICEPRESIDENTE"`.
+* El código de provincia se pasa como argumento. Ejemplo: `5` para Cotopaxi, `17` para Pichincha.
+* El script detecta votos por partido y candidato agrupando por `OP_SIGLAS` y `CANDIDATO_NOMBRE`.
+* Si un valor no existe, se asignan etiquetas como `SIN_PARTIDO` o `DESCONOCIDO`.
+* Los archivos `.xlsx` se generan en `public/output/primera-vuelta/` y `public/output/segunda-vuelta/`.
+* Los archivos `.json` se generan en `public/output/primera-vuelta/` y `public/output/segunda-vuelta/`.
